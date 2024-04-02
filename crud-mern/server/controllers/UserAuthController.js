@@ -52,7 +52,7 @@ export const login = async (req,res) =>{
             }, 
             process.env.JWT_KEY
         )
-            console.log("JWT_KEY",process.env.JWT_KEY)
+            
         //cookie- cookie-name, jwtToken, options- path, expiresIn, httpOnly, sameSite
         res.cookie("token", JwtToken, {
             path: "/",
@@ -80,8 +80,10 @@ export const logout = (req,res) =>{
 export const myDetails = async (req, res) =>{
     //get user details through userid
     const userId = req._id;
+    
     try {
-        const user = await User.findById({userId})
+        const user = await User.findById(userId)
+        
         if(!user){
             return res.status(404).send({msg: "user not found"})
         }
